@@ -40,8 +40,6 @@ void list_sort(struct node *head)
     
 }
 
-
-
 void list_show(struct node *head)
 {
     struct node *current=head;
@@ -116,6 +114,10 @@ int main() {
         else if(!strcmp(input,"clr"))
         {
             
+        }
+        else
+        {
+            printf("command error\n");
         }
     }
     

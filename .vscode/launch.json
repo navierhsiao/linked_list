@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/navier/Desktop/linked_list",
-      "program": "c:/Users/navier/Desktop/linked_list/linked_list.exe",
+      "cwd": "d:/code/C/linked_list",
+      "program": "d:/code/C/linked_list/linked_list.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
