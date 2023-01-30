@@ -11,20 +11,61 @@ struct node
 void list_swap(struct node *head,int value1,int value2)
 {
     struct node *current=head;
-    struct node *prev=head;
+    struct node *prev=NULL;
+
+    struct node *node1_prev=NULL;
+    struct node *node2_prev=NULL;
+    struct node *node1=NULL;
+    struct node *node2=NULL;
+    struct node *temp=NULL;
 
     if(head==NULL||(value1==value2))
     {
         return;
     }
     
-    while(current->next!=NULL)
+    while(current!=NULL)
     {
         if(current->val==value1)
         {
-
+            node1_prev=prev;
+            node1=current;
         }
+        else if(current->val==value2)
+        {
+            node2_prev=prev;
+            node2=current;
+        }
+
+        prev=current;
+        current=current->next;
     }
+
+    if(!node1||!node2)
+    {
+        printf("Input value not found!\n");
+        return;
+    }
+    else if(node1&&node2)
+    {
+        printf("Both values are found!\n");
+        printf("node1 = %d node2 = %d\n",node1->val,node2->val);
+        if(node1_prev)
+        {
+            node1_prev->next=node2;
+        }
+
+        temp=node2->next;
+        node2->next=node1->next;
+
+        if(node2_prev)
+        {
+            node2_prev->next=node1;
+        }
+        node1->next=temp;
+    }
+
+    printf("Swap finished!\n");
 }
 
 void list_append(struct node *head,int value)
@@ -131,6 +172,20 @@ int main() {
         else if(!strcmp(input,"st"))
         {
             
+        }
+        else if(!strcmp(input,"sw"))
+        {
+            int val1=0,val2=0;
+            printf("input 2 value = ");
+            scanf("%d %d",&val1,&val2);
+            if(list_head)
+            {
+                list_swap(list_head,val1,val2);
+            }
+            else
+            {
+                printf("empty list \n");
+            }
         }
         else if(!strcmp(input,"s"))
         {
