@@ -8,6 +8,25 @@ struct node
     struct node *next;
 };
 
+void list_swap(struct node *head,int value1,int value2)
+{
+    struct node *current=head;
+    struct node *prev=head;
+
+    if(head==NULL||(value1==value2))
+    {
+        return;
+    }
+    
+    while(current->next!=NULL)
+    {
+        if(current->val==value1)
+        {
+
+        }
+    }
+}
+
 void list_append(struct node *head,int value)
 {
     struct node *current=head;
@@ -37,7 +56,8 @@ void list_insert(struct node *head,int front_value,int value)
 
 void list_sort(struct node *head)
 {
-    
+    struct node *current=head;
+
 }
 
 void list_show(struct node *head)
@@ -52,6 +72,22 @@ void list_show(struct node *head)
     printf("\n");
 }
 
+int list_search(struct node *head,int value)
+{
+    struct node *current=head;
+    int count=0;
+    while(current!=NULL)
+    {
+        if(current->val==value)
+        {
+            return count;
+        }
+        current=current->next;
+        count++;
+    }
+
+    return -1;
+}
 
 int main() {
     
@@ -95,6 +131,28 @@ int main() {
         else if(!strcmp(input,"st"))
         {
             
+        }
+        else if(!strcmp(input,"s"))
+        {
+            int val=0;
+            printf("value = ");
+            scanf("%d",&val);
+            if(list_head)
+            {
+                int pos=list_search(list_head,val);
+                if(pos==-1)
+                {
+                    printf("Value %d doesn't exit \n",val);
+                }
+                else
+                {
+                    printf("The position of Value %d is %d\n",val,pos);
+                }
+            }
+            else
+            {
+                printf("empty list \n");
+            }
         }
         else if(!strcmp(input,"sh"))
         {
