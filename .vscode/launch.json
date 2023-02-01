@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/Users/xiaoshanwei/code/C/linked_list",
-      "program": "/Users/xiaoshanwei/code/C/linked_list/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "d:/code/C/linked_list",
+      "program": "d:/code/C/linked_list/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

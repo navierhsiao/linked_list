@@ -8,8 +8,9 @@ struct node
     struct node *next;
 };
 
-void list_swap(struct node *head,int value1,int value2)
+struct node *list_swap(struct node *head,int value1,int value2)
 {
+    struct node *new_head=head;
     struct node *current=head;
     struct node *prev=NULL;
 
@@ -21,20 +22,36 @@ void list_swap(struct node *head,int value1,int value2)
 
     if(head==NULL||(value1==value2))
     {
-        return;
+        return new_head;
     }
     
     while(current!=NULL)
     {
         if(current->val==value1)
         {
-            node1_prev=prev;
-            node1=current;
+            if(!node1)
+            {
+                node1_prev=prev;
+                node1=current;
+            }
+            else
+            {
+                node2_prev=prev;
+                node2=current;
+            }
         }
         else if(current->val==value2)
         {
-            node2_prev=prev;
-            node2=current;
+            if(!node1)
+            {
+                node1_prev=prev;
+                node1=current;
+            }
+            else
+            {
+                node2_prev=prev;
+                node2=current;
+            }
         }
 
         prev=current;
@@ -44,28 +61,65 @@ void list_swap(struct node *head,int value1,int value2)
     if(!node1||!node2)
     {
         printf("Input value not found!\n");
-        return;
+        return new_head;
     }
     else if(node1&&node2)
     {
         printf("Both values are found!\n");
         printf("node1 = %d node2 = %d\n",node1->val,node2->val);
-        if(node1_prev)
+       
+        if(!node1_prev||!node2_prev)
+        {
+            if(!node1_prev)
+            {
+                new_head=node2;
+                temp=node2->next;
+                if(node2_prev!=node1)
+                {
+                    node2_prev->next=node1;
+                    node2->next=node1->next;
+                }
+                else
+                {
+                    node2->next=node1;
+                }
+                node1->next=temp;
+            }
+            else if(!node2_prev)
+            {
+                new_head=node1;
+                temp=node2->next;
+                if(node1_prev!=node2)
+                {
+                    node1_prev->next=node2;
+                    node1->next=node2->next;
+                }
+                else
+                {
+                    node1->next=node2;
+                }
+                node2->next=temp;
+            }
+        }
+        else if(node1_prev&&node2_prev)
         {
             node1_prev->next=node2;
+            temp=node2->next;
+            if(node1==node2_prev||node2==node1_prev)
+            {
+                node2->next=node1;    
+            }
+            else
+            {
+                node2_prev->next=node1;
+                node2->next=node1->next;
+            }
+            node1->next=temp;
         }
-
-        temp=node2->next;
-        node2->next=node1->next;
-
-        if(node2_prev)
-        {
-            node2_prev->next=node1;
-        }
-        node1->next=temp;
     }
 
     printf("Swap finished!\n");
+    return new_head;
 }
 
 void list_append(struct node *head,int value)
@@ -180,7 +234,7 @@ int main() {
             scanf("%d %d",&val1,&val2);
             if(list_head)
             {
-                list_swap(list_head,val1,val2);
+                list_head=list_swap(list_head,val1,val2);
             }
             else
             {
