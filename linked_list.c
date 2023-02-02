@@ -137,6 +137,7 @@ void list_append(struct node *head,int value)
 
 void list_remove(struct node *head,int value)
 {
+    struct node *new_head=head;
     struct node *current=head;
     while(current!=NULL)
     {
@@ -149,10 +150,35 @@ void list_insert(struct node *head,int front_value,int value)
     
 }
 
-void list_sort(struct node *head)
+struct node *list_sort(struct node *head)
 {
-    struct node *current=head;
+    struct node *new_head=head;
+    int flag=0;
+    while(1)
+    {
+        struct node *current=new_head;
+        flag=1;
+        while(current->next!=NULL)
+        {
+            if(current->val>current->next->val)
+            {
+                flag=0;
+                new_head=list_swap(new_head,current->val,current->next->val);
+            }
+            else
+            {
+                current=current->next;
+            }
+        }
 
+        if(flag==1)
+        {
+            break;
+        }
+    }
+
+    printf("list sorting finished!\n");
+    return new_head;
 }
 
 void list_show(struct node *head)
@@ -225,7 +251,7 @@ int main() {
         }
         else if(!strcmp(input,"st"))
         {
-            
+            list_head=list_sort(list_head);
         }
         else if(!strcmp(input,"sw"))
         {
