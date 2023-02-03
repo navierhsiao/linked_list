@@ -8,6 +8,8 @@ struct node
     struct node *next;
 };
 
+void list_show(struct node *head);
+
 struct node *list_swap(struct node *head,int value1,int value2)
 {
     struct node *new_head=head;
@@ -54,6 +56,10 @@ struct node *list_swap(struct node *head,int value1,int value2)
             }
         }
 
+        if(node1&&node2)
+        {
+            break;
+        }
         prev=current;
         current=current->next;
     }
@@ -145,9 +151,24 @@ void list_remove(struct node *head,int value)
     }
 }
 
-void list_insert(struct node *head,int front_value,int value)
+void list_insert(struct node *head,int prev_value,int value)
 {
-    
+    struct node *current=head;
+    while(current!=NULL)
+    {
+        if(current->val==prev_value)
+        {
+            struct node *new_node=(struct node*)malloc(sizeof(struct node));
+            new_node->val=value;
+            new_node->next=current->next;
+            current->next=new_node;
+            printf("New node inserted!\n");
+        }
+        else
+        {
+            current=current->next;
+        }
+    }
 }
 
 struct node *list_sort(struct node *head)
@@ -160,6 +181,7 @@ struct node *list_sort(struct node *head)
         flag=1;
         while(current->next!=NULL)
         {
+            printf("1value1 = %d,value2 = %d\n",current->val,current->next->val);
             if(current->val>current->next->val)
             {
                 flag=0;
@@ -169,6 +191,8 @@ struct node *list_sort(struct node *head)
             {
                 current=current->next;
             }
+
+            list_show(new_head);
         }
 
         if(flag==1)
